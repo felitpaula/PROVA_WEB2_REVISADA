@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Loja Virtual Volt.">
+  <title>Volt — Tecnologia que acompanha o seu ritmo</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="imagens/padrao.png" type="image/svg+xml">
+  <script src="app.js" defer></script>
+</head>
+
+<body>
+  <div class="barra-status">
+    <div class="barra-status__conteudo">
+      <div class="barra-status__informacoes">
+        <span class="frete-gratis">
+          Frete Grátis acima de R$199
+        </span>
+      </div>
+      <button id="buttonTema" type="button">
+        ☀ Claro
+      </button>
+    </div>
+  </div>
+  <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
+  <header class="cabecalho">
+    <div class="cabecalho__conteudo">
+      <a href="#catalogo" class="logo link-pagina" data-pagina="catalogo">Volt<span>.</span></a>
+      <nav aria-label="Navegação principal">
+        <a href="#catalogo" class="link-pagina" data-pagina="catalogo" aria-current="page">Catálogo</a>
+        <a href="#carrinho" class="link-pagina" data-pagina="carrinho">Carrinho <span id="contadorCarrinho"
+            class="contador">0</span></a>
+        <a href="#gerenciar" class="link-pagina" data-pagina="gerenciar">Gerenciar</a>
+        <a href="#pedidos" class="link-pagina" data-pagina="pedidos">Pedidos</a>
+      </nav>
+    </div>
+  </header>
+  <div id="mensagem" class="mensagem" role="status" aria-live="polite" aria-atomic="true" hidden></div>
+  <main id="conteudo" class="conteudo-principal">
+    <div id="aplicacao">
+      <section id="catalogo" class="pagina" aria-labelledby="titulocatalogo">
+        <div class="titulo-pagina">
+          <p class="etiqueta">TECNOLOGIA QUE ACOMPANHA O SEU RITMO</p>
+          <h1 id="titulocatalogo" tabindex="-1">Sua próxima boa escolha.</h1>
+          <p>Escolha, adicione ao carrinho e confira os detalhes do seu pedido.</p>
+        </div>
+        <section class="carrossel" aria-label="Carrossel de produtos">
+          <div id="destaque" class="destaque"></div>
+          <div class="carrossel__controles"><button id="buttonAnterior" type="button"
+              aria-label="Produto anterior">←</button><span id="posicaoDestaque" aria-live="polite"
+              aria-atomic="true"></span><button id="buttonProximo" type="button" aria-label="Próximo produto">→</button>
+          </div>
+        </section>
+        <div class="secao-cabecalho">
+          <h2>Nosso catálogo</h2>
+          <div class="busca"><label for="buscaPorNome">Buscar por nome</label><input id="buscaPorNome" type="search"
+              placeholder="Qual vai ser o pedido de hoje?"></div>
+        </div>
+        <fieldset class="filtros">
+          <legend>Filtrar por categoria</legend>
+          <input id="todos" type="radio" name="categoria" value="" checked><label for="todos">Todos</label>
+          <input id="audio" type="radio" name="categoria" value="Áudio"><label for="audio">Áudio</label>
+          <input id="acessorios" type="radio" name="categoria" value="Acessórios"><label
+            for="acessorios">Acessórios</label>
+          <input id="casa" type="radio" name="categoria" value="Casa"><label for="casa">Casa</label>
+          <input id="vestivel" type="radio" name="categoria" value="Vestível"><label for="vestivel">Vestível</label>
+        </fieldset>
+        <p id="resultadoBusca" class="texto-ajuda" role="status"></p>
+        <div id="listaProdutos" class="grade-produtos"></div>
+        <section class="newsletter">
+          <h2 class="newsletter__titulo">
+            Ganhe 10% na primeira compra
+          </h2>
+          <p class="newsletter__texto">
+            Assine a newsletter e receba o cupom de boas-vindas e as ofertas da semana.
+          </p>
+          <form id="formNewsletter" class="newsletter__form">
+            <input type="email" id="emailNewsletter" class="newsletter__input" placeholder="seu@email.com"
+              aria-label="Seu e-mail para a newsletter" required>
+            <button type="submit" class="newsletter__button">
+              Quero o cupom
+            </button>
+          </form>
+          <p id="mensagemNewsletter" class="newsletter__mensagem" aria-live="polite"></p>
+        </section>
+      </section>
+      <section id="carrinho" class="pagina" aria-labelledby="tituloCarrinho" hidden>
+        <div class="titulo-pagina">
+          <p class="etiqueta">QUASE SEU</p>
+          <h1 id="tituloCarrinho" tabindex="-1">Seu carrinho</h1>
+          <p>Confira as quantidades e escolha como receber seu pedido.</p>
+        </div>
+        <p id="pedidoSucesso" class="sucesso" role="status" hidden></p>
+        <div class="layout-carrinho">
+          <div>
+            <div id="listaCarrinho" class="lista-carrinho"></div><button id="buttonLimparCarrinho" type="button"
+              class="botao-perigo">Limpar carrinho</button>
+          </div>
+          <aside class="painel resumo" aria-labelledby="tituloResumo">
+            <h2 id="tituloResumo">Resumo do pedido</h2>
+            <form id="formFinalizarPedido">
+              <div class="campo"><label for="nomeCliente">Seu nome</label><input id="nomeCliente" type="text"
+                  maxlength="80" autocomplete="name" required></div>
+              <div class="campo"><label for="tipoEntrega">Atendimento</label><select id="tipoEntrega">
+                  <option>Retirada</option>
+                  <option>Entrega</option>
+                </select></div>
+              <div id="campoEndereco" class="campo" hidden><label for="enderecoCliente">Endereço de
+                  entrega</label><input id="enderecoCliente" type="text" maxlength="250" autocomplete="street-address"
+                  placeholder="Rua, número e bairro"></div>
+              <div class="campo"><label for="formaPagamento">Forma de pagamento</label><select id="formaPagamento" required>
+                  <option value="">Selecione</option>
+                  <option value="Pagamento na retirada">Pagamento na retirada</option>
+                  <option value="Pix" disabled>Pix</option>
+                </select></div>
+              <div class="valores" aria-live="polite" aria-atomic="true">
+                <p><span>Subtotal</span><strong id="subtotal"></strong></p>
+                <p><span>Taxa de entrega</span><strong id="taxaEntrega"></strong></p>
+                <p class="total"><span>Total</span><strong id="total"></strong></p>
+              </div>
+              <p class="texto-ajuda">Grátis para compras acima de R$199.<br />Retirada não paga frete</p>
+              <button id="buttonFinalizar" type="submit" class="botao-principal">Finalizar pedido</button>
+            </form>
+          </aside>
+        </div>
+      </section>
+      <section id="gerenciar" class="pagina" aria-labelledby="tituloGerenciar" hidden>
+        <div class="titulo-pagina">
+          <p class="etiqueta">SEU CATÁLOGO EM DIA</p>
+          <h1 id="tituloGerenciar" tabindex="-1">Gerenciar produtos</h1>
+          <p>Cadastre, edite e exclua os produtos da sua loja.</p>
+        </div>
+        <section class="painel formulario-produto" aria-labelledby="tituloFormularioProduto">
+          <h2 id="tituloFormularioProduto">Cadastrar produto</h2>
+          <form id="formProduto">
+            <div class="formulario-grade">
+              <div class="campo"><label for="nomeProduto">Nome</label><input id="nomeProduto" type="text" required
+                  maxlength="80"></div>
+              <div class="campo"><label for="categoriaProduto">Categoria</label><select id="categoriaProduto" required>
+                  <option value="">Selecione</option>
+                  <option>Áudio</option>
+                  <option>Acessórios</option>
+                  <option>Casa</option>
+                  <option>Vestível</option>
+                </select></div>
+            </div>
+            <div class="campo"><label for="descricaoProduto">Descrição</label><textarea id="descricaoProduto" required
+                maxlength="300"></textarea></div>
+            <div class="formulario-grade">
+              <div class="campo"><label for="precoProduto">Preço (R$)</label><input id="precoProduto" type="number"
+                  min="0.01" max="10000" step="0.01" required></div>
+              <div class="campo"><label for="imagemProduto">Imagem (opcional)</label><input id="imagemProduto"
+                  type="file" accept="image/png,image/jpeg,image/webp" aria-describedby="ajudaImagem"></div>
+            </div>
+            <p id="ajudaImagem" class="texto-ajuda">PNG, JPEG ou WebP até 350 KB. Sem arquivo novo, a imagem atual é
+              mantida. Novos produtos recebem uma ilustração.</p>
+            <div class="acoes"><button id="buttonSalvarProduto" type="submit" class="botao-principal">Cadastrar
+                produto</button><button id="buttonCancelarProduto" type="button" hidden>Cancelar edição</button></div>
+          </form>
+        </section>
+        <h2>Produtos cadastrados</h2>
+        <div id="listaGerenciamento" class="grade-produtos"></div>
+      </section>
+      <section id="pedidos" class="pagina" aria-labelledby="tituloPedidos" hidden>
+        <div class="titulo-pagina">
+          <p class="etiqueta">DO CARRINHO AO PEDIDO</p>
+          <h1 id="tituloPedidos" tabindex="-1">Pedidos registrados</h1>
+          <p>Consulte os detalhes e atualize os dados e o status dos pedidos.</p>
+        </div>
+        <div class="campo filtro-status"><label for="filtroStatus">Filtrar por status</label><select id="filtroStatus">
+            <option value="">Todos</option>
+            <option>Pendente</option>
+            <option>Em preparo</option>
+            <option>Pronto</option>
+            <option>Finalizado</option>
+            <option>Cancelado</option>
+          </select></div>
+        <section id="editarPedido" class="painel formulario-produto" aria-labelledby="tituloEditarPedido" hidden>
+          <h2 id="tituloEditarPedido">Editar pedido</h2>
+          <form id="formEditarPedido">
+            <div class="campo"><label for="editarNomeCliente">Nome do cliente</label><input id="editarNomeCliente"
+                required maxlength="80"></div>
+            <div class="formulario-grade">
+              <div class="campo"><label for="editarTipoEntrega">Atendimento</label><select id="editarTipoEntrega">
+                  <option>Retirada</option>
+                  <option>Entrega</option>
+                </select></div>
+              <div class="campo"><label for="editarStatus">Status</label><select id="editarStatus">
+                  <option>Pendente</option>
+                  <option>Em preparo</option>
+                  <option>Pronto</option>
+                  <option>Finalizado</option>
+                  <option>Cancelado</option>
+                </select></div>
+            </div>
+            <div class="campo"><label for="editarEndereco">Endereço (obrigatório para entrega)</label><input
+                id="editarEndereco" maxlength="250"></div>
+            <p class="texto-ajuda">Os itens, preços originais e data são preservados. Alterar o atendimento recalcula a
+              taxa.</p>
+            <div class="acoes"><button type="submit" class="botao-principal">Salvar pedido</button><button
+                id="buttonCancelarPedido" type="button">Cancelar</button></div>
+          </form>
+        </section>
+        <div id="listaPedidos" class="grade-pedidos"></div>
+      </section>
+    </div>
+    <noscript>
+      <p>Ative o JavaScript para usar o catálogo e os pedidos.</p>
+    </noscript>
+  </main>
+  <dialog id="modalPagamentoPix" class="modal-pix" aria-labelledby="tituloPagamentoPix"
+    aria-describedby="ajudaPagamentoPix">
+    <h2 id="tituloPagamentoPix">Pagamento por Pix</h2>
+    <p>Tempo restante: <strong id="contadorPix" class="contador-pix" role="timer">15:00</strong></p>
+    <p>Total: <strong id="totalPix"></strong></p>
+    <p id="estadoQrCode" class="texto-ajuda" role="status">Gerando QR Code...</p>
+    <img id="qrCodePix" class="qr-code-pix" alt="QR Code de demonstração do Pix" width="240" height="240"
+      referrerpolicy="no-referrer" hidden>
+    <div class="acoes"><button id="buttonCancelarPagamento" type="button" class="botao-perigo" autofocus>Cancelar
+        pagamento</button><button id="buttonConfirmarPagamento" type="button" class="botao-principal" disabled>Já realizei o
+        pagamento</button></div>
+  </dialog>
+  <footer class="rodape"><strong>Volt.</strong>
+    <span>
+      <a class="navbar-brand" href="https://github.com/felitpaula" target="_blank">
+          <img
+            src="imagens/github.png"
+            width="50"
+            height="50"
+            alt="GitHub Logo"
+          >
+      </a>
+    </span>
+  </footer>
+</body>
+
+</html>
